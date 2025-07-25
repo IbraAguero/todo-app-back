@@ -1,8 +1,10 @@
+import "dotenv/config";
 import express from "express";
 import tasksRouter from "./routes/tasks-routes";
 import cors from "cors";
+import { connectDB } from "./db";
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.use(cors());
@@ -15,6 +17,7 @@ app.get("/", (_req, res) => {
 
 app.use("/tasks", tasksRouter);
 
+connectDB();
 app.listen(PORT, () => {
   console.log(`Servidor en http://localhost:${PORT}`);
 });
